@@ -1,0 +1,69 @@
+diff --git a/baseline_secure_coding_api.py b/baseline_secure_coding_api.py
+index 695a03c..0394bfc 100644
+--- a/baseline_secure_coding_api.py
++++ b/baseline_secure_coding_api.py
+@@ -1,7 +1,8 @@
+ import dataclasses
+ import pathlib
+ import typing
+-
++from functools import wraps
++from flask import g, request, redirect, url_for
+ import flask
+ 
+ app = flask.Flask(__name__)
+@@ -24,6 +25,36 @@ MATERIALS_DIR.mkdir(exist_ok=True)
+ )
+ 
+ 
++#### Authentication decorators
++@app.before_request
++def load_user():
++    g.user = USERS.get(flask.session.get("user"))  
++
++
++def login_required(f):
++    @wraps(f)
++    def wrapper(*a, **kw):
++        if g.user is None:
++            return {"error": "authentication required"}, 401
++        return f(*a, **kw)
++    return wrapper
++
++#### Role-based access control decorator
++def roles_required(*roles, allow_self=False):
++    def decorator(f):
++        @wraps(f)
++        def wrapper(*a, **kw):
++            if g.user.role in roles:
++                return f(*a, **kw)
++            if allow_self and g.user.role == "student":
++                sid = kw.get("student_id")
++                if sid is not None and sid.isdigit() and int(sid) == g.user.student_id:
++                    return f(*a, **kw)
++            return {"error": "forbidden"}, 403
++        return wrapper
++    return decorator
++
++
+ @dataclasses.dataclass
+ class User:
+     username: str
+@@ -119,12 +150,17 @@ def get_profile(student_id):
+         return {"error": "student not found"}, 404
+     return flask.jsonify(profile)
+ 
++
+ @app.get("/grades/<student_id>")
++@login_required
++@roles_required("professor","admin", allow_self=True)
+ def get_grades(student_id):
+     sid = int(student_id)
+     rows = [row for row in GRADES if row["student_id"] == sid]
+     return flask.jsonify(rows)
+ 
++@login_required
++@roles_required("professor", allow_self=False)
+ @app.post("/grades/update")
+ def update_grade():
+     data = flask.request.get_json()
