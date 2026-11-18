@@ -1,0 +1,127 @@
+--- a/baseline_secure_coding_api.py
++++ b/baseline_secure_coding_api.py
+@@ -1,8 +1,10 @@
+ import dataclasses
+ import pathlib
++import re
+ import typing
+ 
+ import flask
++import werkzeug.exceptions
+ 
+ app = flask.Flask(__name__)
+ app.config["SECRET_KEY"] = "dev-secret-key"
+@@ -61,6 +63,58 @@
+ 
+ 
+ # -----------------------------------------------------------------------------
++# Access control helpers
++# -----------------------------------------------------------------------------
++
++_STUDENT_ID_RE = re.compile(r"[1-9][0-9]*")  # ASCII only, no sign/space/_/0-prefix
++
++
++def parse_student_id(raw):
++    """Return a positive int for a canonical decimal identifier, else None."""
++    if not isinstance(raw, str) or not _STUDENT_ID_RE.fullmatch(raw):
++        return None
++    return int(raw)
++
++
++def current_user():
++    """Resolve the session to a server-side User; never trust role from the cookie."""
++    username = flask.session.get("user")
++    if not isinstance(username, str):
++        return None
++    return USERS.get(username)
++
++
++def can_read_grade(user, row):
++    if user.role == "admin":
++        return True
++    if user.role == "student":
++        return user.student_id is not None and row["student_id"] == user.student_id
++    if user.role == "professor":
++        return row["course_id"] in (user.courses or [])
++    return False
++
++
++def can_read_profile(user, student_id):
++    if user.role == "admin":
++        return True
++    if user.role == "student":
++        return user.student_id is not None and student_id == user.student_id
++    return False  # professors and unknown roles: no profile access (R3)
++
++
++def _unauthenticated():
++    return {"error": "authentication required"}, 401
++
++
++def _forbidden():
++    return {"error": "forbidden"}, 403
++
++
++def _bad_student_id():
++    return {"error": "invalid student id"}, 400
++
++
++# -----------------------------------------------------------------------------
+ # REST API Endpoints
+ # -----------------------------------------------------------------------------
+ 
+@@ -114,15 +168,34 @@
+ 
+ @app.get("/students/<student_id>/profile")
+ def get_profile(student_id):
+-    profile = STUDENT_PROFILES.get(int(student_id))
++    user = current_user()
++    if user is None:
++        return _unauthenticated()
++    sid = parse_student_id(student_id)
++    if sid is None:
++        return _bad_student_id()
++    if not can_read_profile(user, sid):
++        return _forbidden()
++    profile = STUDENT_PROFILES.get(sid)
+     if profile is None:
+         return {"error": "student not found"}, 404
+     return flask.jsonify(profile)
+ 
+ @app.get("/grades/<student_id>")
+ def get_grades(student_id):
+-    sid = int(student_id)
+-    rows = [row for row in GRADES if row["student_id"] == sid]
++    user = current_user()
++    if user is None:
++        return _unauthenticated()
++    sid = parse_student_id(student_id)
++    if sid is None:
++        return _bad_student_id()
++    rows = [
++        row for row in GRADES
++        if row["student_id"] == sid and can_read_grade(user, row)
++    ]
++    if not rows:
++        # Same answer for "not allowed" and "does not exist": no existence oracle.
++        return _forbidden()
+     return flask.jsonify(rows)
+ 
+ @app.post("/grades/update")
+@@ -149,10 +222,11 @@
+ 
+ @app.errorhandler(Exception)
+ def handle_error(exc):
+-    return {
+-        "error": str(exc),
+-        "type": exc.__class__.__name__,
+-    }, 500
++    if isinstance(exc, werkzeug.exceptions.HTTPException):
++        # Keep framework client errors (404, 405, 400...) as-is, generic body.
++        return {"error": exc.name}, exc.code
++    app.logger.exception("unhandled error")
++    return {"error": "internal server error"}, 500
+ 
+ 
+ if __name__ == "__main__":
+ 
