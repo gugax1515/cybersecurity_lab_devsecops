@@ -1,4 +1,5 @@
 import dataclasses
+import functools
 import pathlib
 import re
 import typing
@@ -54,6 +55,37 @@ GRADES = [
     {"student_id": 1002, "course_id": "SRS", "grade": 15},
     {"student_id": 1001, "course_id": "SSD", "grade": 16},
 ]
+
+def login_required(view):
+    """Reject requests without an authenticated session (R1)."""
+
+    @functools.wraps(view)
+    def wrapper(*args, **kwargs):
+        if current_user() is None:
+            return {"error": "authentication required"}, 401
+        return view(*args, **kwargs)
+
+    return wrapper
+
+
+def resolve_material(raw_path):
+    """Map a client-supplied relative path to a regular file inside
+    MATERIALS_DIR, or return None.
+
+    The path is fully resolved first (".." collapsed, symlinks followed,
+    absolute operands honoured), and only then checked for containment,
+    so every escape route is judged on the real final location.
+    """
+    base = MATERIALS_DIR.resolve()
+    try:
+        target = (base / raw_path).resolve(strict=True)
+    except (OSError, RuntimeError, ValueError):
+        # Missing file, symlink loop, embedded NUL byte, etc.
+        return None
+    if not target.is_relative_to(base) or not target.is_file():
+        return None
+    return target
+
 
 def find_grade(student_id, course_id):
     for row in GRADES:
@@ -215,9 +247,14 @@ def update_grade():
     return {"status": "ok", "student_id": student_id, "course_id": course_id, "grade": grade}
 
 @app.get("/files")
+@login_required
 def download_file():
     raw_path = flask.request.args.get("path", "")
-    target = MATERIALS_DIR / raw_path
+    target = resolve_material(raw_path)
+    if target is None:
+        # Same response for "outside the directory" and "does not exist",
+        # so the endpoint cannot be used to probe the filesystem.
+        return {"error": "file not found"}, 404
     return flask.send_file(target)
 
 @app.errorhandler(Exception)

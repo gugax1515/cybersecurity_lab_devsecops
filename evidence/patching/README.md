@@ -13,6 +13,11 @@ Repair assistance, not discovery. Model: Claude Opus 5.5, medium effort (see `..
 | `F03/llm-additional-tests.py` | Extra regression tests proposed by the model (original attachment `test_grades_read_authorization_extra.py`) |
 | `F03/manual-decorators-draft.txt` | Our own earlier hand-written decorator attempt, kept only as a reference for the review; it was not sent to the model |
 | `F06/prompt.md` | Repair prompt for F06 (path traversal in `GET /files`) |
+| `F06/llm-response.md` | The model's complete first answer for F06 |
+| `F06/llm-patch.diff` | The unified diff proposed by the model (written against the original baseline; does not apply on top of the F03 repair) |
+| `F06/llm-additional-tests.py` | Extra regression tests proposed by the model |
+| `F06/manual-merge.diff` | Adaptation of the model's diff on top of the F03 commit, made with a coding assistant (Claude Code) and verified by the tests, including one correction (`login_required` uses the server-side user) |
+| `F06/review.md` | Our Section 12 review and the list of manual changes |
 | `F06/first-attempt-andre/` | First F06 attempt by a team member (prompt, CI output, model diff, partial review notes), kept for the record |
 
 ## Rules for this folder
