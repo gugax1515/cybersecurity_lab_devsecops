@@ -1,0 +1,81 @@
+{
+  "Ref": "pl2o2ljn6sa8u3mdgqbdzcc12",
+  "FrontendAttrs": {
+    "attest:provenance": "mode=min,inline-only=true",
+    "filename": "Dockerfile",
+    "image-resolve-mode": "local",
+    "vcs:localdir:context": ".",
+    "vcs:localdir:dockerfile": ".",
+    "vcs:revision": "013e087523f3e2a9ef244d412dc43c5723710627",
+    "vcs:source": "https://github.com/gugax1515/cybersecurity_lab_devsecops"
+  },
+  "Exporters": [
+    {
+      "Type": "image",
+      "Attrs": {
+        "danging-name-empty-only": "true",
+        "dangling-name-prefix": "moby-dangling",
+        "name": "docker.io/library/secure-coding-api:013e087523f3e2a9ef244d412dc43c5723710627",
+        "prefer-image-digest": "true",
+        "unpack": "true"
+      }
+    }
+  ],
+  "CreatedAt": {
+    "seconds": 1794972102,
+    "nanos": 259494313
+  },
+  "CompletedAt": {
+    "seconds": 1794972110,
+    "nanos": 759014997
+  },
+  "logs": {
+    "media_type": "application/vnd.buildkit.status.v0",
+    "digest": "sha256:6daba61407a66ca533d48df903c97c6339cff1edd08d9c7b3532f56ffa117ed3",
+    "size": 16499
+  },
+  "ExporterResponse": {
+    "containerimage.base.config": "{\"created\":\"2026-10-06T02:07:06.439596866Z\",\"architecture\":\"amd64\",\"os\":\"linux\",\"rootfs\":{\"type\":\"layers\",\"diff_ids\":[\"sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62\",\"sha256:a49f6dbcd8e94a53df10473b98c4d05a2d7ad1f4fc9f850439a69805f364ed8e\",\"sha256:e117d9c82914f2c23e2ee8d8bc34149d366c97cd290746b08befc3a0703623f9\",\"sha256:45360af7f9838f7360c0b3fbc4ed48ba46d4fca6948c9432413cc2d96ea3fe8a\"]},\"history\":[{\"created\":\"2026-10-05T00:00:00Z\",\"created_by\":\"# debian.sh --arch 'amd64' out/ 'trixie' '@1791158400'\",\"comment\":\"debuerreotype 0.17\"},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV LANG=C.UTF-8\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"RUN /bin/sh -c set -eux; \\tapt-get update; \\tapt-get install -y --no-install-recommends \\t\\tca-certificates \\t\\tnetbase \\t\\ttzdata \\t; \\tapt-get dist-clean # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV PYTHON_VERSION=3.10.22\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV PYTHON_SHA256=c61fe9b1a1a7ec2a0b0388e664187c378a5325a89e3606d220abf5bdfccb2543\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:07:06.319045175Z\",\"created_by\":\"RUN /bin/sh -c set -eux; \\t\\tsavedAptMark=\\\"$(apt-mark showmanual)\\\"; \\tapt-get update; \\tapt-get install -y --no-install-recommends \\t\\tdpkg-dev \\t\\tg++ \\t\\tgcc \\t\\tgnupg \\t\\tlibbluetooth-dev \\t\\tlibbz2-dev \\t\\tlibc6-dev \\t\\tlibdb-dev \\t\\tlibffi-dev \\t\\tlibgdbm-dev \\t\\tliblzma-dev \\t\\tlibncursesw5-dev \\t\\tlibreadline-dev \\t\\tlibsqlite3-dev \\t\\tlibssl-dev \\t\\tmake \\t\\ttk-dev \\t\\tuuid-dev \\t\\twget \\t\\txz-utils \\t\\tzlib1g-dev \\t; \\t\\twget -O python.tar.xz \\\"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz\\\"; \\techo \\\"$PYTHON_SHA256 *python.tar.xz\\\" | sha256sum -c -; \\twget -O python.tar.xz.asc \\\"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc\\\"; \\tGNUPGHOME=\\\"$(mktemp -d)\\\"; export GNUPGHOME; \\tgpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \\\"$GPG_KEY\\\"; \\tgpg --batch --verify python.tar.xz.asc python.tar.xz; \\tgpgconf --kill all; \\trm -rf \\\"$GNUPGHOME\\\" python.tar.xz.asc; \\tmkdir -p /usr/src/python; \\ttar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \\trm python.tar.xz; \\t\\tcd /usr/src/python; \\tgnuArch=\\\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\\\"; \\t./configure \\t\\t--build=\\\"$gnuArch\\\" \\t\\t--enable-loadable-sqlite-extensions \\t\\t--enable-optimizations \\t\\t--enable-option-checking=fatal \\t\\t--enable-shared \\t\\t$(test \\\"${gnuArch%%-*}\\\" != 'riscv64' \\u0026\\u0026 echo '--with-lto') \\t\\t--with-ensurepip \\t; \\tnproc=\\\"$(nproc)\\\"; \\tEXTRA_CFLAGS=\\\"$(dpkg-buildflags --get CFLAGS)\\\"; \\tLDFLAGS=\\\"$(dpkg-buildflags --get LDFLAGS)\\\"; \\tLDFLAGS=\\\"${LDFLAGS:-} -Wl,--strip-all\\\"; \\tmake -j \\\"$nproc\\\" \\t\\t\\\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\\\" \\t\\t\\\"LDFLAGS=${LDFLAGS:-}\\\" \\t; \\trm python; \\tmake -j \\\"$nproc\\\" \\t\\t\\\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\\\" \\t\\t\\\"LDFLAGS=${LDFLAGS:-} -Wl,-rpath='\\\\$\\\\$ORIGIN/../lib'\\\" \\t\\tpython \\t; \\tmake install; \\t\\tcd /; \\trm -rf /usr/src/python; \\t\\tfind /usr/local -depth \\t\\t\\\\( \\t\\t\\t\\\\( -type d -a \\\\( -name test -o -name tests -o -name idle_test \\\\) \\\\) \\t\\t\\t-o \\\\( -type f -a \\\\( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \\\\) \\\\) \\t\\t\\\\) -exec rm -rf '{}' + \\t; \\t\\tldconfig; \\t\\tapt-mark auto '.*' \\u003e /dev/null; \\tapt-mark manual $savedAptMark; \\tfind /usr/local -type f -executable -not \\\\( -name '*tkinter*' \\\\) -exec ldd '{}' ';' \\t\\t| awk '/=\\u003e/ { so = $(NF-1); if (index(so, \\\"/usr/local/\\\") == 1) { next }; gsub(\\\"^/(usr/)?\\\", \\\"\\\", so); printf \\\"*%s\\\\n\\\", so }' \\t\\t| sort -u \\t\\t| xargs -rt dpkg-query --search \\t\\t| awk 'sub(\\\":$\\\", \\\"\\\", $1) { print $1 }' \\t\\t| sort -u \\t\\t| xargs -r apt-mark manual \\t; \\tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \\tapt-get dist-clean; \\t\\texport PYTHONDONTWRITEBYTECODE=1; \\tpython3 --version; \\t\\tpip3 install \\t\\t--disable-pip-version-check \\t\\t--no-cache-dir \\t\\t--no-compile \\t\\t'setuptools==79.0.1' \\t\\t'wheel==0.46.3' \\t; \\tpip3 --version # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2026-10-06T02:07:06.439596866Z\",\"created_by\":\"RUN /bin/sh -c set -eux; \\tfor src in idle3 pip3 pydoc3 python3 python3-config; do \\t\\tdst=\\\"$(echo \\\"$src\\\" | tr -d 3)\\\"; \\t\\t[ -s \\\"/usr/local/bin/$src\\\" ]; \\t\\t[ ! -e \\\"/usr/local/bin/$dst\\\" ]; \\t\\tln -svT \\\"$src\\\" \\\"/usr/local/bin/$dst\\\"; \\tdone # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2026-10-06T02:07:06.439596866Z\",\"created_by\":\"CMD [\\\"python3\\\"]\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true}],\"config\":{\"Env\":[\"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\"LANG=C.UTF-8\",\"GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\"PYTHON_VERSION=3.10.22\",\"PYTHON_SHA256=c61fe9b1a1a7ec2a0b0388e664187c378a5325a89e3606d220abf5bdfccb2543\"],\"Cmd\":[\"python3\"]}}",
+    "containerimage.config": "{\"architecture\":\"amd64\",\"os\":\"linux\",\"rootfs\":{\"type\":\"layers\",\"diff_ids\":[\"sha256:15f1c8eb1ab18eae260c7fb6296434cbe1ff0e1e30fd814ae92a80dd54005e62\",\"sha256:a49f6dbcd8e94a53df10473b98c4d05a2d7ad1f4fc9f850439a69805f364ed8e\",\"sha256:e117d9c82914f2c23e2ee8d8bc34149d366c97cd290746b08befc3a0703623f9\",\"sha256:45360af7f9838f7360c0b3fbc4ed48ba46d4fca6948c9432413cc2d96ea3fe8a\"]},\"history\":[{\"created\":\"2026-10-05T00:00:00Z\",\"created_by\":\"# debian.sh --arch 'amd64' out/ 'trixie' '@1791158400'\",\"comment\":\"debuerreotype 0.17\"},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV LANG=C.UTF-8\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"RUN /bin/sh -c set -eux; \\tapt-get update; \\tapt-get install -y --no-install-recommends \\t\\tca-certificates \\t\\tnetbase \\t\\ttzdata \\t; \\tapt-get dist-clean # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV PYTHON_VERSION=3.10.22\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:00:58.405052807Z\",\"created_by\":\"ENV PYTHON_SHA256=c61fe9b1a1a7ec2a0b0388e664187c378a5325a89e3606d220abf5bdfccb2543\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created\":\"2026-10-06T02:07:06.319045175Z\",\"created_by\":\"RUN /bin/sh -c set -eux; \\t\\tsavedAptMark=\\\"$(apt-mark showmanual)\\\"; \\tapt-get update; \\tapt-get install -y --no-install-recommends \\t\\tdpkg-dev \\t\\tg++ \\t\\tgcc \\t\\tgnupg \\t\\tlibbluetooth-dev \\t\\tlibbz2-dev \\t\\tlibc6-dev \\t\\tlibdb-dev \\t\\tlibffi-dev \\t\\tlibgdbm-dev \\t\\tliblzma-dev \\t\\tlibncursesw5-dev \\t\\tlibreadline-dev \\t\\tlibsqlite3-dev \\t\\tlibssl-dev \\t\\tmake \\t\\ttk-dev \\t\\tuuid-dev \\t\\twget \\t\\txz-utils \\t\\tzlib1g-dev \\t; \\t\\twget -O python.tar.xz \\\"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz\\\"; \\techo \\\"$PYTHON_SHA256 *python.tar.xz\\\" | sha256sum -c -; \\twget -O python.tar.xz.asc \\\"https://www.python.org/ftp/python/${PYTHON_VERSION%%[a-z]*}/Python-$PYTHON_VERSION.tar.xz.asc\\\"; \\tGNUPGHOME=\\\"$(mktemp -d)\\\"; export GNUPGHOME; \\tgpg --batch --keyserver hkps://keys.openpgp.org --recv-keys \\\"$GPG_KEY\\\"; \\tgpg --batch --verify python.tar.xz.asc python.tar.xz; \\tgpgconf --kill all; \\trm -rf \\\"$GNUPGHOME\\\" python.tar.xz.asc; \\tmkdir -p /usr/src/python; \\ttar --extract --directory /usr/src/python --strip-components=1 --file python.tar.xz; \\trm python.tar.xz; \\t\\tcd /usr/src/python; \\tgnuArch=\\\"$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)\\\"; \\t./configure \\t\\t--build=\\\"$gnuArch\\\" \\t\\t--enable-loadable-sqlite-extensions \\t\\t--enable-optimizations \\t\\t--enable-option-checking=fatal \\t\\t--enable-shared \\t\\t$(test \\\"${gnuArch%%-*}\\\" != 'riscv64' \\u0026\\u0026 echo '--with-lto') \\t\\t--with-ensurepip \\t; \\tnproc=\\\"$(nproc)\\\"; \\tEXTRA_CFLAGS=\\\"$(dpkg-buildflags --get CFLAGS)\\\"; \\tLDFLAGS=\\\"$(dpkg-buildflags --get LDFLAGS)\\\"; \\tLDFLAGS=\\\"${LDFLAGS:-} -Wl,--strip-all\\\"; \\tmake -j \\\"$nproc\\\" \\t\\t\\\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\\\" \\t\\t\\\"LDFLAGS=${LDFLAGS:-}\\\" \\t; \\trm python; \\tmake -j \\\"$nproc\\\" \\t\\t\\\"EXTRA_CFLAGS=${EXTRA_CFLAGS:-}\\\" \\t\\t\\\"LDFLAGS=${LDFLAGS:-} -Wl,-rpath='\\\\$\\\\$ORIGIN/../lib'\\\" \\t\\tpython \\t; \\tmake install; \\t\\tcd /; \\trm -rf /usr/src/python; \\t\\tfind /usr/local -depth \\t\\t\\\\( \\t\\t\\t\\\\( -type d -a \\\\( -name test -o -name tests -o -name idle_test \\\\) \\\\) \\t\\t\\t-o \\\\( -type f -a \\\\( -name '*.pyc' -o -name '*.pyo' -o -name 'libpython*.a' \\\\) \\\\) \\t\\t\\\\) -exec rm -rf '{}' + \\t; \\t\\tldconfig; \\t\\tapt-mark auto '.*' \\u003e /dev/null; \\tapt-mark manual $savedAptMark; \\tfind /usr/local -type f -executable -not \\\\( -name '*tkinter*' \\\\) -exec ldd '{}' ';' \\t\\t| awk '/=\\u003e/ { so = $(NF-1); if (index(so, \\\"/usr/local/\\\") == 1) { next }; gsub(\\\"^/(usr/)?\\\", \\\"\\\", so); printf \\\"*%s\\\\n\\\", so }' \\t\\t| sort -u \\t\\t| xargs -rt dpkg-query --search \\t\\t| awk 'sub(\\\":$\\\", \\\"\\\", $1) { print $1 }' \\t\\t| sort -u \\t\\t| xargs -r apt-mark manual \\t; \\tapt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \\tapt-get dist-clean; \\t\\texport PYTHONDONTWRITEBYTECODE=1; \\tpython3 --version; \\t\\tpip3 install \\t\\t--disable-pip-version-check \\t\\t--no-cache-dir \\t\\t--no-compile \\t\\t'setuptools==79.0.1' \\t\\t'wheel==0.46.3' \\t; \\tpip3 --version # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2026-10-06T02:07:06.439596866Z\",\"created_by\":\"RUN /bin/sh -c set -eux; \\tfor src in idle3 pip3 pydoc3 python3 python3-config; do \\t\\tdst=\\\"$(echo \\\"$src\\\" | tr -d 3)\\\"; \\t\\t[ -s \\\"/usr/local/bin/$src\\\" ]; \\t\\t[ ! -e \\\"/usr/local/bin/$dst\\\" ]; \\t\\tln -svT \\\"$src\\\" \\\"/usr/local/bin/$dst\\\"; \\tdone # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created\":\"2026-10-06T02:07:06.439596866Z\",\"created_by\":\"CMD [\\\"python3\\\"]\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created_by\":\"WORKDIR /app\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created_by\":\"COPY requirements.txt . # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created_by\":\"RUN /bin/sh -c pip install --no-cache-dir -r requirements.txt # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created_by\":\"COPY baseline_secure_coding_api.py . # buildkit\",\"comment\":\"buildkit.dockerfile.v0\"},{\"created_by\":\"EXPOSE [5001/tcp]\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true},{\"created_by\":\"CMD [\\\"python\\\" \\\"baseline_secure_coding_api.py\\\"]\",\"comment\":\"buildkit.dockerfile.v0\",\"empty_layer\":true}],\"config\":{\"ExposedPorts\":{\"5001/tcp\":{}},\"Env\":[\"PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\"LANG=C.UTF-8\",\"GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D\",\"PYTHON_VERSION=3.10.22\",\"PYTHON_SHA256=c61fe9b1a1a7ec2a0b0388e664187c378a5325a89e3606d220abf5bdfccb2543\"],\"Cmd\":[\"python\",\"baseline_secure_coding_api.py\"],\"WorkingDir\":\"/app\",\"ArgsEscaped\":true}}",
+    "refs.platforms": "{\"Platforms\":[{\"ID\":\"linux/amd64\",\"Platform\":{\"architecture\":\"amd64\",\"os\":\"linux\"}}]}",
+    "verifier.requestopts": "{\"Platforms\":[\"linux/amd64\"],\"Labels\":{},\"Request\":\"\"}"
+  },
+  "Result": {
+    "ResultDeprecated": {
+      "media_type": "application/vnd.oci.image.index.v1+json",
+      "digest": "sha256:030f06c979c667edb8d98f79b4e4a3c1977494ab8d1e01f2508f03ce989541f0",
+      "size": 856
+    },
+    "Attestations": [
+      {
+        "media_type": "application/vnd.in-toto+json",
+        "digest": "sha256:796cfab0ee5078a5c5d5c830a257570dcc499250fb3766d8c933936326036f89",
+        "size": 29723,
+        "annotations": {
+          "in-toto.io/predicate-type": "https://slsa.dev/provenance/v1"
+        }
+      }
+    ],
+    "Results": {
+      "0": {
+        "media_type": "application/vnd.oci.image.index.v1+json",
+        "digest": "sha256:030f06c979c667edb8d98f79b4e4a3c1977494ab8d1e01f2508f03ce989541f0",
+        "size": 856
+      }
+    }
+  },
+  "Generation": 1,
+  "trace": {
+    "media_type": "application/vnd.buildkit.otlp.json.v0",
+    "digest": "sha256:32398313b15617c7678f6df47fb800b429a05eaf13659f0411558696ba4e6b73",
+    "size": 148845
+  },
+  "numTotalSteps": 10,
+  "numCompletedSteps": 10,
+  "DefaultPlatform": "linux/amd64",
+  "localState": {
+    "Target": "default",
+    "LocalPath": "/home/runner/work/cybersecurity_lab_devsecops/cybersecurity_lab_devsecops",
+    "DockerfilePath": ""
+  }
+}
